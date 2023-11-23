@@ -71,9 +71,12 @@ document.body.appendChild(buttonCreate);
 
 buttonCreate.addEventListener('click', () => {
   const div = document.createElement('div');
-  div.textContent = input.value;
-  document.body.appendChild(div);
-  input.value = '';
+  const text = input.value.trim();
+  if (text !== '') {
+    div.textContent = text;
+    document.body.appendChild(div);
+    input.value = '';
+  }
 });
 
 // Добавьте кнопку “remove last block“ которая удалит последний созданный блок
@@ -84,9 +87,11 @@ document.body.appendChild(buttonDelete);
 
 buttonDelete.addEventListener('click', () => {
   const div = document.querySelectorAll('div');
-  const lastBlock = div[div.length - 1];
-  lastBlock.remove();
-  console.log(lastBlock);
+  if (div.length > 0) {
+    const lastBlock = div[div.length - 1];
+    lastBlock.remove();
+    console.log(lastBlock);
+  }
 });
 
 // Добавьте еще один инпут который принимает на вход только числа
@@ -104,7 +109,10 @@ document.body.appendChild(buttonNth);
 buttonNth.addEventListener('click', () => {
   const div = document.querySelectorAll('div');
   const numberIn = inputNumber.value - 1;
-  let removeDiv = div[numberIn];
-  removeDiv.remove();
-  console.log(removeDiv);
+  if (numberIn >= 0 && numberIn < div.length) {
+    let removeDiv = div[numberIn];
+    removeDiv.remove();
+    inputNumber.value = '';
+    console.log(removeDiv);
+  }
 });
