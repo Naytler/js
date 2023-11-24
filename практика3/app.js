@@ -53,4 +53,5 @@ search.addEventListener('click', () => {
   }
   inputVal = text;
   fetchHandler(inputVal);
+  input.value = '';
 });

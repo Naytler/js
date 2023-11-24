@@ -200,15 +200,14 @@ function writebel(e) {
         return true;
       }
     });
-    const index = tasks.findIndex((task) => {
-      return task.id == id;
-    });
+    let beforeUpdateValue = taskFind.text;
     if (isEditable) {
       paragraph.setAttribute('contenteditable', 'false');
-      taskFind.text = paragraph.textContent;
-      if (taskFind.text === '') {
-        parentDiv.remove();
-        tasks.splice(index, 1);
+
+      if (paragraph.textContent.trim() !== '') {
+        taskFind.text = paragraph.textContent;
+      } else {
+        paragraph.textContent = beforeUpdateValue;
       }
     } else {
       paragraph.setAttribute('contenteditable', 'true');
