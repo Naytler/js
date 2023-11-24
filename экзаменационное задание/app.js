@@ -192,17 +192,30 @@ function deleteTask(e) {
 function writebel(e) {
   if (e.target.dataset.action === 'write') {
     const parentDiv = e.target.closest('.add__div');
+    const id = parentDiv.id;
     const paragraph = parentDiv.querySelector('p');
     const isEditable = paragraph.getAttribute('contenteditable') === 'true';
-
+    let taskFind = tasks.find((e) => {
+      if (e.id == id) {
+        return true;
+      }
+    });
+    const index = tasks.findIndex((task) => {
+      return task.id == id;
+    });
     if (isEditable) {
       paragraph.setAttribute('contenteditable', 'false');
+      taskFind.text = paragraph.textContent;
+      if (taskFind.text === '') {
+        parentDiv.remove();
+        tasks.splice(index, 1);
+      }
     } else {
       paragraph.setAttribute('contenteditable', 'true');
       paragraph.focus();
     }
+    safeToLocalStorage();
   }
-  safeToLocalStorage();
 }
 function safeToLocalStorage() {
   localStorage.setItem('tasks', JSON.stringify(tasks));

@@ -100,3 +100,5 @@ function isIsogram(str) {
 }
 
 console.log(isIsogram('Ads'));
+
+// 10
